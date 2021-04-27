@@ -1,0 +1,29 @@
+
+#define USSENSOR SensorUS(IN_3)
+#define LIGHTSENSOR Sensor(IN_2)
+#define TOUCHSENSOR Sensor(IN_1)
+
+task main(){
+  
+  SetSensorLight(IN_1);
+  SetSensorLight(IN_2);
+  SetSensorUltrasonic(IN_3);
+
+while(true){
+	
+	ClearScreen();
+  TextOut(1,LCD_LINE1,"us_reading:");
+  NumOut(1,LCD_LINE2,USSENSOR);
+
+  TextOut(1,LCD_LINE3,"Light Sensor:");
+  NumOut(1,LCD_LINE4,LIGHTSENSOR);
+
+  TextOut(1,LCD_LINE5,"touch Sensor:");
+  NumOut(1,LCD_LINE6,TOUCHSENSOR);
+
+  Wait(400);
+  }
+
+}
+
+

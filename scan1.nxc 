@@ -1,0 +1,81 @@
+
+//motors and which ports they are connected
+#define LEFT_MOTOR  OUT_C
+#define RIGHT_MOTOR OUT_B
+
+#define US_SENSOR SensorUS(IN_3)
+
+//variable declarations
+CURRENT_READING = 0;
+PREVIOUS_READING = 0;
+
+sub scan_field(){
+	
+	while (true) {
+
+		int difference = 0;
+
+		//rotate robot to initite the search 
+		OnFwd(LEFT_MOTOR, 70);
+    	OnFwd(RIGHT_MOTOR, 20);
+	
+		CURRENT_READING =  US_SENSOR;
+	
+		difference = PREVIOUS_READING - CURRENT_READING ;
+
+		//stop scanning if ball is found
+		if (difference > 10) {
+			
+			break;
+	
+		}
+		PREVIOUS_READING = CURRENT_READING;
+	}
+
+
+
+}
+
+sub approach_ball() {
+	
+	while(true){
+
+		OnFwd(LEFT_MOTOR, 50);
+    	OnFwd(RIGHT_MOTOR, 50);
+
+    	if (US_SENSOR < 40){
+   			OnFwd(LEFT_MOTOR, 30);
+    		OnFwd(RIGHT_MOTOR, 30);
+    	}
+
+    	if (US_SENSOR < 20){
+   			OnFwd(LEFT_MOTOR, 20);
+    		OnFwd(RIGHT_MOTOR, 20);
+    	}
+
+    	if (US_SENSOR < 5 || US_SENSOR == 255 ) {
+    		break;
+    	}
+
+    }
+ 	
+
+}
+  
+
+task main(){
+
+//set sensor
+SetSensorUltrasonic(IN_3);
+
+//scan the field
+
+//should be inside while loop
+
+
+scan_field()
+approach_ball()
+
+
+
+}
